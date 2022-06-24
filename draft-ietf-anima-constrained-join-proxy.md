@@ -37,7 +37,9 @@ normative:
   RFC6347:
   RFC8366:
   RFC8995:
-  I-D.ietf-ace-coap-est:
+  RFC9032:
+  RFC9147:
+  RFC9148:
   I-D.ietf-anima-constrained-voucher:
   RFC8949:
   RFC8990:
@@ -47,20 +49,14 @@ normative:
     author:
     ins: "IEEE Standard"
     date: 2009
-  family:
-    target: "https://www.iana.org/assignments/address-family-numbers/address-family-numbers.xhtml"
-    title: "Address Family Numbers"
-    author:
-    ins: "IANA"
-    date: 2021-10-19
 
 informative:
   I-D.richardson-anima-state-for-joinrouter:
-  I-D.ietf-6tisch-enrollment-enhanced-beacon:
   RFC6690:
   RFC7030:
   RFC7102:
   RFC7228:
+  RFC9031:
   I-D.kumar-dice-dtls-relay:
   RFC4944:
   RFC3610:
@@ -69,6 +65,7 @@ informative:
   RFC7959:
   RFC8974:
   RFC6550:
+  RFC8610:
 
 --- abstract
 This document extends the work of Bootstrapping Remote Secure Key
@@ -97,7 +94,8 @@ Constrained devices which may be part of constrained networks {{RFC7228}}, typic
 
 CoAP can be run with the Datagram Transport Layer Security (DTLS) {{RFC6347}} as a security protocol for authenticity and confidentiality of the messages.
 This is known as the "coaps" scheme.
-A constrained version of EST, using Coap and DTLS, is described in {{I-D.ietf-ace-coap-est}}. The {{I-D.ietf-anima-constrained-voucher}} extends {{I-D.ietf-ace-coap-est}} with BRSKI artifacts such as voucher, request voucher, and the protocol extensions for constrained Pledges.
+A constrained version of EST, using Coap and DTLS, is described in {{RFC9148}}.
+The {{I-D.ietf-anima-constrained-voucher}} extends {{RFC9148}} with BRSKI artifacts such as voucher, request voucher, and the protocol extensions for constrained Pledges.
 
 DTLS is a client-server protocol relying on the underlying IP layer to perform the routing between the DTLS Client and the DTLS Server.
 However, the Pledge will not be IP routable over the mesh network
@@ -361,7 +359,7 @@ The discovery follows two steps with two alternatives for step 1:
 
    * Step 1. Two alternatives exist (near and far):
 
-     * Near: the Pledge is one hop away from the Registrar. The Pledge discovers the link-local address of the Registrar as described in {{I-D.ietf-ace-coap-est}}. From then on, it follows the BRSKI process as described in {{I-D.ietf-ace-coap-est}} and {{I-D.ietf-anima-constrained-voucher}}, using link-local addresses.
+     * Near: the Pledge is one hop away from the Registrar. The Pledge discovers the link-local address of the Registrar as described in {{RFC9148}}. From then on, it follows the BRSKI process as described in {{RFC9148}} and {{I-D.ietf-anima-constrained-voucher}}, using link-local addresses.
 
      * Far: the Pledge is more than one hop away from a relevant Registrar, and discovers the link-local address and join-port of a Join Proxy. The Pledge then follows the BRSKI procedure using the link-local address of the Join Proxy.
 
@@ -391,7 +389,7 @@ Upon success, the return payload will contain the join-port of the Registrar.
   <coaps://[IP_address]:join-port>; rt="brski.rjp"
 ~~~~
 
-The discoverable port numbers are usually returned for Join Proxy resources in the &lt;URI-Reference&gt; of the payload (see section 5.1 of {{I-D.ietf-ace-coap-est}}).
+The discoverable port numbers are usually returned for Join Proxy resources in the &lt;URI-Reference&gt; of the payload (see section 5.1 of {{RFC9148}}).
 
 ### GRASP discovery
 
@@ -419,7 +417,7 @@ The Registrar uses a routable address that can be used by enrolled constrained J
 
 ### 6tisch discovery
 
-The discovery of the Registrar by the Join Proxy uses the enhanced beacons as discussed in {{I-D.ietf-6tisch-enrollment-enhanced-beacon}}.
+The discovery of the Registrar by the Join Proxy uses the enhanced beacons as discussed in {{RFC9032}}.
 
 ## Pledge discovers Join-Proxy
 
@@ -445,7 +443,7 @@ The example below shows the discovery of the join-port of the Join Proxy.
 ~~~~
 
 Port numbers are assumed to be the default numbers 5683 and 5684 for coap and coaps respectively (sections 12.6 and 12.7 of {{RFC7252}}) when not shown in the response.
-Discoverable port numbers are usually returned for Join Proxy resources in the &lt;URI-Reference&gt; of the payload (see section 5.1 of {{I-D.ietf-ace-coap-est}}).
+Discoverable port numbers are usually returned for Join Proxy resources in the &lt;URI-Reference&gt; of the payload (see section 5.1 of {{RFC9148}}).
 
 ### GRASP discovery
 
@@ -473,7 +471,7 @@ Here is an example M_FLOOD announcing the Join-Proxy at fe80::1, on standard coa
 
 ### 6tisch discovery
 
-The discovery of Join-Proxy by the Pledge uses the enhanced beacons as discussed in {{I-D.ietf-6tisch-enrollment-enhanced-beacon}}.
+The discovery of Join-Proxy by the Pledge uses the enhanced beacons as discussed in {{RFC9032}}.
 6tisch does not use DTLS and so this specification does not apply to it.
 
 # Comparison of stateless and stateful modes {#jr-comp}
